@@ -5,7 +5,7 @@ C++ 템플릿(Template)을 사용하여 다양한 타입의 아이템을 저장�
 
 # 인벤토리 기능 구현
 
-<img width="255" height="230" alt="image" src="https://github.com/user-attachments/assets/43dbd858-79de-4305-9441-df1e385fb972" />
+<img width="337" height="361" alt="image" src="https://github.com/user-attachments/assets/2c07b29f-feff-4f1a-a2ad-3ebe210e693e" />
 
 
 **`Inventory<T>` 클래스 구현**
@@ -32,10 +32,12 @@ C++ 템플릿(Template)을 사용하여 다양한 타입의 아이템을 저장�
 
 **멤버 함수 (public)**
 
-- **`void AddItem(const T& item)`**
-    - 새로운 아이템을 인벤토리에 추가합니다.
-    - 인벤토리가 꽉 찼다면 "인벤토리가 꽉 찼습니다!" 메시지를 출력하고 아무 동작도 하지 않습니다.
-
+- **`AddItem`**
+    - 인벤토리가 꽉 찬 상태에서 `AddItem`이 호출되면, 기존 `capacity`의 **2배** 크기로 인벤토리를 확장하고 새로운 아이템을 추가합니다. (기존 아이템들은 모두 유지되어야 합니다.)
+      
+- **`Resize` 멤버 함수 추가:**
+    - `void Resize(int newCapacity)`: 인벤토리의 `capacity`를 `newCapacity`로 변경합니다.
+      
 - **`void RemoveLastItem()`**
     - 인벤토리의 가장 마지막에 추가된 아이템을 제거합니다.
     - 인벤토리가 비어있다면 "인벤토리가 비어있습니다." 메시지를 출력합니다.
@@ -44,8 +46,7 @@ C++ 템플릿(Template)을 사용하여 다양한 타입의 아이템을 저장�
     - 인벤토리에 있는 모든 아이템의 정보를 화면에 출력합니다.
     - 만약 인벤토리가 비어있다면 "(비어있음)" 메시지를 출력합니다.
  
-## 도전 기능
-<img width="337" height="361" alt="image" src="https://github.com/user-attachments/assets/2c07b29f-feff-4f1a-a2ad-3ebe210e693e" />
+
 
 
 - **복사 생성자 및 대입(Assign) 함수 구현:**
@@ -53,11 +54,7 @@ C++ 템플릿(Template)을 사용하여 다양한 타입의 아이템을 저장�
     - `void Assign(const Inventory<T>& other);` (대입 역할을 하는 함수)
         - 이미 존재하는 객체에 값을 덮어쓸 때 호출
      
-- **`AddItem` 기능 확장:**
-    - 인벤토리가 꽉 찬 상태에서 `AddItem`이 호출되면, 기존 `capacity`의 **2배** 크기로 인벤토리를 확장하고 새로운 아이템을 추가합니다. (기존 아이템들은 모두 유지되어야 합니다.)
-      
-- **`Resize` 멤버 함수 추가:**
-    - `void Resize(int newCapacity)`: 인벤토리의 `capacity`를 `newCapacity`로 변경합니다.
+
       
 - **`SortItems` 멤버 함수 추가:**
     - `void SortItems()`: 인벤토리의 아이템들을 **가격 오름차순**으로 정렬합니다. 
