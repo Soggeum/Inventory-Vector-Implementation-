@@ -12,7 +12,7 @@ bool compareItemsByPrice(const Item& a, const Item& b);
 
 class Item
 {
-private:
+protected:
 	string name_;
 	int price_;
 
@@ -25,51 +25,33 @@ public:
 	void SetName(const string& name) { name_ = name; }
 	void SetPrice(const int& price) { price_ = price; }
 
-	void PrintInfo() const 
+	virtual void PrintInfo() const 
 	{
 		cout << "[이름: " << name_ << ", 가격: " << price_ << "G]" << endl;
 	}
 };
 
-class Weapon
+class Weapon : public Item
 {
-private:
-	string name_;
-	int price_;
-
 public:
-	Weapon() : name_("Unknown"), price_(0) {}
-	Weapon(const string& name, const int& price) : name_(name), price_(price) {}
+	Weapon() : Item("Unknown", 0) {}
+	Weapon(const string& name, const int& price) : Item(name, price) {}
 
-	string GetName() const { return name_; }
-	int GetPrice() const { return price_; }
-	void SetName(const string& name) { name_ = name; }
-	void SetPrice(const int& price) { price_ = price; }
-
-	void PrintInfo() const
+	void PrintInfo() const override
 	{
-		cout << "[이름: " << name_ << ", 가격: " << price_ << "G]" << endl;
+		cout << "[무기 이름: " << name_ << ", 가격: " << price_ << "G]" << endl;
 	}
 };
 
-class Potion
+class Potion : public Item
 {
-private:
-	string name_;
-	int price_;
-
 public:
-	Potion() : name_("Unknown"), price_(0) {}
-	Potion(const string& name, const int& price) : name_(name), price_(price) {}
+	Potion() : Item("Unknown", 0) {}
+	Potion(const string& name, const int& price) : Item(name, price) {}
 
-	string GetName() const { return name_; }
-	int GetPrice() const { return price_; }
-	void SetName(const string& name) { name_ = name; }
-	void SetPrice(const int& price) { price_ = price; }
-
-	void PrintInfo() const
+	void PrintInfo() const override
 	{
-		cout << "[이름: " << name_ << ", 가격: " << price_ << "G]" << endl;
+		cout << "[포션 이름: " << name_ << ", 가격: " << price_ << "G]" << endl;
 	}
 };
 
@@ -180,7 +162,7 @@ bool compareItemsByPrice(const Item& a, const Item& b) {
 }
 
 int main() {
-	Inventory<Item> itemInventory(5);
+	Inventory<Weapon> itemInventory(5);
 	cout << "Capacity: " << itemInventory.GetCapacity() << endl;
 	cout << "Size: " << itemInventory.GetSize() << endl;
 	cout << "아이템 목록" << endl;
@@ -191,10 +173,10 @@ int main() {
 	cout << "아이템 추가 : 파란 모자, 30G" << endl;
 	cout << "아이템 추가 : 초록 모자, 20G" << endl;
 	cout << "아이템 추가 : 노란 모자, 40G" << endl;
-	itemInventory.AddItem(Item("빨간 모자", 50));
-	itemInventory.AddItem(Item("파란 모자", 30));
-	itemInventory.AddItem(Item("초록 모자", 20));
-	itemInventory.AddItem(Item("노란 모자", 40));
+	itemInventory.AddItem(Weapon("빨간 모자", 50));
+	itemInventory.AddItem(Weapon("파란 모자", 30));
+	itemInventory.AddItem(Weapon("초록 모자", 20));
+	itemInventory.AddItem(Weapon("노란 모자", 40));
 	cout << "Capacity: " << itemInventory.GetCapacity() << endl;
 	cout << "Size: " << itemInventory.GetSize() << endl;
 	cout << "아이템 목록" << endl;
@@ -203,8 +185,8 @@ int main() {
 
 	cout << "아이템 추가 : 보라 모자, 10G" << endl;
 	cout << "아이템 추가 : 검정 모자, 60G" << endl;
-	itemInventory.AddItem(Item("보라 모자", 10));
-	itemInventory.AddItem(Item("검정 모자", 60));
+	itemInventory.AddItem(Weapon("보라 모자", 10));
+	itemInventory.AddItem(Weapon("검정 모자", 60));
 	cout << "Capacity: " << itemInventory.GetCapacity() << endl;
 	cout << "Size: " << itemInventory.GetSize() << endl;
 	cout << "아이템 목록" << endl;
@@ -225,11 +207,11 @@ int main() {
 	itemInventory.PrintAllItems();
 	cout << endl;
 
-	Inventory<Item> itemInventory2(itemInventory);
+	Inventory<Weapon> itemInventory2(itemInventory);
 	itemInventory2.PrintAllItems();
 	cout << endl;
 
-	Inventory<Item> itemInventory3;
+	Inventory<Weapon> itemInventory3;
 	itemInventory3.Assign(itemInventory);
 	itemInventory3.PrintAllItems();
 }
